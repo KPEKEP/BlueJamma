@@ -1,0 +1,87 @@
+* 74HC595 Behavioral Macro-Model
+* Subcircuit for 74HC595 Shift Register
+* Compatible with KiCad (Ngspice), LTSpice, and TINA
+*
+* Pin Configuration:
+* 1  - QB
+* 2  - QC
+* 3  - QD
+* 4  - QE
+* 5  - QF
+* 6  - QG
+* 7  - QH
+* 8  - GND
+* 9  - QHS (Serial Output)
+* 10 - MR  (Active Low Reset)
+* 11 - SH_CP (Shift Clock)
+* 12 - ST_CP (Latch Clock)
+* 13 - OE  (Active Low Output Enable)
+* 14 - DS  (Serial Data Input)
+* 15 - QA
+* 16 - VCC
+
+.subckt 74HC595 QB QC QD QE QF QG QH GND QHS MR SH_CP ST_CP OE DS QA VCC
+.param VDD=5
+
+* Internal Shift Register Nodes (SR0 - SR7 correspond to QA - QH)
+* Internal Latch Register Nodes (LR0 - LR7 correspond to QA - QH)
+
+.nodeset V(SR0)=0 V(SR1)=0 V(SR2)=0 V(SR3)=0 V(SR4)=0 V(SR5)=0 V(SR6)=0 V(SR7)=0
+.nodeset V(LR0)=0 V(LR1)=0 V(LR2)=0 V(LR3)=0 V(LR4)=0 V(LR5)=0 V(LR6)=0 V(LR7)=0
+
+* Previous Clock States for Edge Detection
+.nodeset V(SHOLD)=0 V(LHOLD)=0
+
+* Master Reset Detection (MR is active low)
+BMRR MR_reset 0 V= if(V(MR) < 0.8, 1, 0)
+
+* Shift Clock Rising Edge Detection
+B_SH_RISE SH_rise 0 V= if((V(SH_CP) > 2.5) && (V(SHOLD) < 2.5), 1, 0)
+B_SHOLD   SHOLD 0 V= V(SH_CP)
+
+* Latch Clock Rising Edge Detection
+B_LH_RISE LH_rise 0 V= if((V(ST_CP) > 2.5) && (V(LHOLD) < 2.5), 1, 0)
+B_LHOLD   LHOLD 0 V= V(ST_CP)
+
+* SHIFT REGISTER UPDATE:
+* On MR low: reset SR bits to 0.
+* On SH_CP rising edge: shift data and load DS into SR0
+
+B_SR0 SR0 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(DS), V(SR0)))
+B_SR1 SR1 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR0), V(SR1)))
+B_SR2 SR2 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR1), V(SR2)))
+B_SR3 SR3 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR2), V(SR3)))
+B_SR4 SR4 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR3), V(SR4)))
+B_SR5 SR5 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR4), V(SR5)))
+B_SR6 SR6 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR5), V(SR6)))
+B_SR7 SR7 0 V= if(V(MRR_reset) > 0, 0, if(V(SH_rise) > 0, V(SR6), V(SR7)))
+
+* Serial Output QHS = SR7
+B_QHS QHS 0 V= V(SR7)*VDD
+
+* LATCH REGISTER UPDATE:
+* On LH_rise: copy SR bits to LR bits
+
+B_LR0 LR0 0 V= if(V(LH_rise) > 0, V(SR0), V(LR0))
+B_LR1 LR1 0 V= if(V(LH_rise) > 0, V(SR1), V(LR1))
+B_LR2 LR2 0 V= if(V(LH_rise) > 0, V(SR2), V(LR2))
+B_LR3 LR3 0 V= if(V(LH_rise) > 0, V(SR3), V(LR3))
+B_LR4 LR4 0 V= if(V(LH_rise) > 0, V(SR4), V(LR4))
+B_LR5 LR5 0 V= if(V(LH_rise) > 0, V(SR5), V(LR5))
+B_LR6 LR6 0 V= if(V(LH_rise) > 0, V(SR6), V(LR6))
+B_LR7 LR7 0 V= if(V(LH_rise) > 0, V(SR7), V(LR7))
+
+* OUTPUT ENABLE:
+* If OE is low (<0.8V): Outputs = Latch Register * VDD
+* If OE is high (>2.0V): Outputs are High-Impedance (simulated as 0 V)
+
+B_QA QA 0 V= if(V(OE) < 0.8, V(LR0)*VDD, 0)
+B_QB QB 0 V= if(V(OE) < 0.8, V(LR1)*VDD, 0)
+B_QC QC 0 V= if(V(OE) < 0.8, V(LR2)*VDD, 0)
+B_QD QD 0 V= if(V(OE) < 0.8, V(LR3)*VDD, 0)
+B_QE QE 0 V= if(V(OE) < 0.8, V(LR4)*VDD, 0)
+B_QF QF 0 V= if(V(OE) < 0.8, V(LR5)*VDD, 0)
+B_QG QG 0 V= if(V(OE) < 0.8, V(LR6)*VDD, 0)
+B_QH QH 0 V= if(V(OE) < 0.8, V(LR7)*VDD, 0)
+
+.ends 74HC595

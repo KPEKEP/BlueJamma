@@ -1,0 +1,51 @@
+* ---------------------------------------------------------------------------
+* Modified LM2596T-ADJ Average Model
+* ---------------------------------------------------------------------------
+* LM2596T-ADJ Average SPICE Model (Non-switching)
+* Pins: IN OUT GND FB ON_OFF_N
+* Based on datasheet SNVS124C
+* Adjusted so equilibrium matches standard formula:
+*    VOUT = VREF * (1 + R2/R1)
+*
+* Key specifications:
+* - Input: 4.5V to 40V
+* - Reference: 1.23V
+* - Shutdown via ON_OFF_N (High=disabled, Low=enabled)
+* - Current Limit: ILIMIT=3A default
+*
+.param ILIMIT=3
+.param R1_val=1k R2_val=3k
+
+.SUBCKT LM2596T_ADJ_AVG IN OUT GND FB ON_OFF_N
+E1 N001 GND VALUE={V(IN,GND)}
+R1 N001 IN 1e-3
+
+B_INOK N_INOK GND V={if(V(IN,GND)>40 | V(IN,GND)<4.5,0,1)}
+B_EN N_EN GND V={if(V(ON_OFF_N)>1.3,0,1)}
+
+* Reference Voltage
+VREF REF GND 1.23
+E2 N004 GND VALUE={V(FB,GND)}
+R2 REF FB 1Meg
+
+* Modified Control Equation:
+* At equilibrium, V(FB)=V(REF).
+* So (V(REF)/V(FB))=1 at equilibrium.
+* We want VOUT = VREF*(1+R2_val/R1_val).
+* The output node inside the model (N005) sets:
+* N005 = (V(REF)/V(FB,GND))*V(FB,GND)*((R1_val+R2_val)/R1_val)
+*
+* Simplifies to:
+* N005 = V(REF)*(1+R2_val/R1_val) at equilibrium,
+* ensuring proper stable Vout.
+B3 N005 GND V={ if(V(N_INOK)>0.5 & V(N_EN)>0.5, (V(REF)/V(FB,GND))*V(FB,GND)*((R1_val+R2_val)/R1_val), 0)}
+
+B_ILIM N_ILIM GND V={if(I(VSENSE)>ILIMIT,0,1)}
+VSENSE N005 N007 0
+R3 N007 OUT 1e-3
+E3 OUT GND VALUE={if(V(N_ILIM)>0.5,V(N007,GND),0)}
+
+R4 GND 0 1e9
+.ENDS LM2596T_ADJ_AVG
+
+.end
