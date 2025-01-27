@@ -39,7 +39,9 @@ Watch a demo of the device working with Bluetooth controllers:
 https://github.com/KPEKEP/BlueJamma/raw/main/images/demo.mp4
 
 ## TODO
-* Add a shadow-line for the top and bottom parts of the enclosure
+- [ ] Add a shadow-line for the top and bottom parts of the enclosure
+- [ ] Test with Jamma board and different harness combinations
+- [ ] Test video signal quality with\without BlueJamma. Some decoupling circuitry might be need.
 
 ## Disclaimer and License
 
