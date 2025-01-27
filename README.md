@@ -13,7 +13,7 @@ The device is built around the ESP32-C3 SuperMini development board, which provi
 - Open-source hardware and software
 
 ## Hardware
-The project uses the ESP32-C3 SuperMini form factor for its compact size and built-in USB capabilities. A complete list of required components and materials can be found in the [Bill of Materials](bom/BOM.md).
+The project uses the ESP32-C3 SuperMini form factor for its compact size and built-in USB capabilities. A complete list of required components and materials can be found in the interactive [Bill of Materials](bom/ibom.html).
 
 The PCB design incorporates elements from the [JammaKludge project](https://github.com/estechnical/jammakludge) by estechnical, which provided valuable reference for the Jamma connector implementation.
 
@@ -25,9 +25,9 @@ The PCB design incorporates elements from the [JammaKludge project](https://gith
 
 ### Enclosure Design
 Check out the 3D render of the enclosure design:
-https://github.com/KPEKEP/BlueJamma/raw/main/enclosure/24v.avi
+https://github.com/KPEKEP/BlueJamma/raw/main/enclosure/export/rc3/rc3_v1.avi
 
-STEP files for the enclosure are available in the [enclosure/export/rc2/](enclosure/export/rc2/) folder.
+STEP files for the enclosure are available in the [enclosure/export/rc3/](enclosure/export/rc3/) folder.
 
 ### Assembled Device
 <img src="images/pcb.jpg" width="400" alt="Manufactured PCB">
@@ -38,14 +38,8 @@ Assembled device: https://github.com/KPEKEP/BlueJamma/raw/main/images/assembled.
 Watch a demo of the device working with Bluetooth controllers:
 https://github.com/KPEKEP/BlueJamma/raw/main/images/demo.mp4
 
-## Known Issues
-
-### Bottom Mounting Issue
-The current PCB design lacks proper plastic caps to hold screws in place on the bottom side of the board. This can make mounting slightly inconvenient.
-
-<img src="images/issue1.jpg" width="400" alt="Bottom mounting issue">
-
-Status: Fix planned for the next PCB revision.
+## TODO
+* Add a shadow-line for the top and bottom parts of the enclosure
 
 ## Disclaimer and License
 
