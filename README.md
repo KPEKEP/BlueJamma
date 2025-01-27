@@ -17,19 +17,17 @@ The project uses the ESP32-C3 SuperMini form factor for its compact size and bui
 
 The PCB design incorporates elements from the [JammaKludge project](https://github.com/estechnical/jammakludge) by estechnical, which provided valuable reference for the Jamma connector implementation.
 
-## Demonstration
-
-### PCB Design
+## PCB Design
 <img src="images/pcb_render.jpg" width="400" alt="PCB Front Render">
 <img src="images/pcb_back_render.jpg" width="400" alt="PCB Back Render">
 
-### Enclosure Design
+## Enclosure Design
 Check out the 3D render of the enclosure design:
 https://github.com/KPEKEP/BlueJamma/raw/main/enclosure/export/rc3/rc3_v1.avi
 
 STEP files for the enclosure are available in the [enclosure/export/rc3/](enclosure/export/rc3/) folder.
 
-### Assembled Device
+## Assembled Device
 <img src="images/pcb.jpg" width="400" alt="Manufactured PCB">
 <img src="images/pcb_back.jpg" width="400" alt="Manufactured PCB Back">
 <img src="images/soldered.jpg" width="400" alt="Soldered Device">
@@ -38,33 +36,16 @@ Assembled device: https://github.com/KPEKEP/BlueJamma/raw/main/images/assembled.
 Watch a demo of the device working with Bluetooth controllers:
 https://github.com/KPEKEP/BlueJamma/raw/main/images/demo.mp4
 
-## TODO
-- [ ] Add a shadow-line for the top and bottom parts of the enclosure
-- [ ] Test with Jamma board and different harness combinations
-- [ ] Test video signal quality with\without BlueJamma. Some decoupling circuitry might be need.
-
-## Disclaimer and License
-
-### Non-Commercial Use License
-This project is released under a Non-Commercial Use License. You are free to:
-- Use this project for personal, non-commercial purposes
-- Modify and adapt the code for personal use
-- Share the project with others, provided you maintain the same license
-
-You may NOT:
-- Use this project for commercial purposes
-- Sell products based on this project
-- Include this project in commercial applications
-
+## Risk Disclaimer
+### ATTENTION: The device was tested only with Pandora Box, which is a Chamma board. Jamma boards are not tested yet.
 ### Chamma and Jamma compatibility
-IMPORTANT: The additional kicker harnesses are not supported yet.
+### IMPORTANT: The additional kicker harnesses are not supported yet.
+
 BlueJamma was designed to be a pass-through between the arcade board and physical controls or whatever is connected next. When no input is coming from gamepads, regardless of their connection status, the system behaves as it would be a straight connection between the arcade board and physical controllers.
 If an arcade board has Chamma (6-button), or regular Jamma (non-6-button) interface, it should work.
 Please refer to the image of the layout below (side by side of top and bottom side of the PCB) and pay attention to the traces between 25,26,27,C,D,E on the right side of the PCB.
-<a href="images/pcb_layout.jpg"><img src="images/pcb_layout.jpg" width="400" alt="PCB Layout"></a>
 
-### Risk Disclaimer
-### ATTENTION: The device was tested only with Pandora Box, which is a Chamma board. Jamma boards are not tested yet.
+<a href="images/pcb_layout.jpg"><img src="images/pcb_layout.jpg" width="400" alt="PCB Layout"></a>
 
 **USE AT YOUR OWN RISK**: The hardware and software in this project are provided "as is", without warranty of any kind, express or implied. The creators and contributors of this project accept no responsibility or liability for any damage, injury, or loss resulting from the use of this project's hardware, software, or documentation.
 
@@ -78,15 +59,22 @@ This project uses:
 - Originally written code and hardware designs
 - Third-party libraries used under their respective licenses (see Dependencies section)
 
-## Contributing
-Contributions are welcome! Please read our contributing guidelines before submitting pull requests.
+### Non-Commercial Use License
+This project is released under a Non-Commercial Use License. You are free to:
+- Use this project for personal, non-commercial purposes
+- Modify and adapt the code for personal use
+- Share the project with others, provided you maintain the same license
 
-## Support
-This is a community project. For support:
-- Open an issue on GitHub
-- Check existing documentation
-- Join our community discussions
+You may NOT:
+- Use this project for commercial purposes
+- Sell products based on this project
+- Include this project in commercial applications
 
+## TODO
+- [ ] Add a shadow-line for the top and bottom parts of the enclosure
+- [ ] Test with Jamma board and different harness combinations
+- [ ] Test video signal quality with\without BlueJamma. Some decoupling circuitry might be need.
+      
 ## Authors and Acknowledgment
 Pavel Nakaznenko, 2025
 
