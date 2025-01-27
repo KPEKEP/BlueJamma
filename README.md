@@ -42,7 +42,7 @@ https://github.com/KPEKEP/BlueJamma/raw/main/images/demo.mp4
 ### IMPORTANT: The additional kicker harnesses are not supported yet.
 
 BlueJamma was designed to be a pass-through between the arcade board and physical controls or whatever is connected next. When no input is coming from gamepads, regardless of their connection status, the system behaves as it would be a straight connection between the arcade board and physical controllers.
-If an arcade board has Chamma (6-button), or regular Jamma (non-6-button) interface, it should work.
+If an arcade board has Chamma (6-button), or regular Jamma (3-button) interface, it should work.
 Please refer to the image of the layout below (side by side of top and bottom side of the PCB) and pay attention to the traces between 25,26,27,C,D,E on the right side of the PCB.
 
 <a href="images/pcb_layout.jpg"><img src="images/pcb_layout.jpg" width="400" alt="PCB Layout"></a>
